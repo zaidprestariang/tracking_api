@@ -1,0 +1,462 @@
+{
+	"info": {
+		"_postman_id": "14401be8-30f0-4453-bf77-07a2b68cb55b",
+		"name": "Prestariang POC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Vehicle",
+			"item": [
+				{
+					"name": "{{API_ROOT}}/updateGPSLocation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "deviceid",
+									"value": "TK1111",
+									"sessionValue": "TK1111",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "-148.530111867397",
+									"sessionValue": "-148.530111867397",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "72.0497516948508",
+									"sessionValue": "72.0497516948508",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_ROOT}}/updateGPSLocation",
+							"host": [
+								"{{API_ROOT}}"
+							],
+							"path": [
+								"updateGPSLocation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "{{API_ROOT}}/vehicles LIST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "deviceid",
+									"value": "TK1111",
+									"sessionValue": "TK1111",
+									"type": "text"
+								},
+								{
+									"key": "latitute",
+									"value": "-148.530111867397",
+									"sessionValue": "-148.530111867397",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "72.0497516948508",
+									"sessionValue": "72.0497516948508",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_ROOT}}/vehicles",
+							"host": [
+								"{{API_ROOT}}"
+							],
+							"path": [
+								"vehicles"
+							]
+						},
+						"description": "Get list of vehicles"
+					},
+					"response": []
+				},
+				{
+					"name": "{{API_ROOT}}/vehicles?status=NEW LIST BY Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "deviceid",
+									"value": "TK1111",
+									"sessionValue": "TK1111",
+									"type": "text"
+								},
+								{
+									"key": "latitute",
+									"value": "-148.530111867397",
+									"sessionValue": "-148.530111867397",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "72.0497516948508",
+									"sessionValue": "72.0497516948508",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_ROOT}}/vehicles?status=NEW",
+							"host": [
+								"{{API_ROOT}}"
+							],
+							"path": [
+								"vehicles"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "NEW"
+								}
+							]
+						},
+						"description": "List by Status"
+					},
+					"response": []
+				},
+				{
+					"name": "{{API_ROOT}}/vehicles ADD",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "deviceid",
+									"value": "TK1111",
+									"sessionValue": "TK1111",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "My Car",
+									"sessionValue": "-148.530111867397",
+									"type": "text"
+								},
+								{
+									"key": "plateNo",
+									"value": "ABC1234",
+									"sessionValue": "72.0497516948508",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_ROOT}}/vehicles",
+							"host": [
+								"{{API_ROOT}}"
+							],
+							"path": [
+								"vehicles"
+							]
+						},
+						"description": "Add vehicles"
+					},
+					"response": []
+				},
+				{
+					"name": "{{API_ROOT}}/vehicles DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "deviceid",
+									"value": "TK1111",
+									"sessionValue": "TK1111",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "latitute",
+									"value": "-148.530111867397",
+									"sessionValue": "-148.530111867397",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "longitude",
+									"value": "72.0497516948508",
+									"sessionValue": "72.0497516948508",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_ROOT}}/vehicles/5b80307b053f00c5bc0d384e",
+							"host": [
+								"{{API_ROOT}}"
+							],
+							"path": [
+								"vehicles",
+								"5b80307b053f00c5bc0d384e"
+							]
+						},
+						"description": "Delete vehicles"
+					},
+					"response": []
+				},
+				{
+					"name": "{{API_ROOT}}/vehicles location history LIST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "deviceid",
+									"value": "TK1111",
+									"sessionValue": "TK1111",
+									"type": "text"
+								},
+								{
+									"key": "latitute",
+									"value": "-148.530111867397",
+									"sessionValue": "-148.530111867397",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "72.0497516948508",
+									"sessionValue": "72.0497516948508",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_ROOT}}/vehicleLocationHistory?deviceid=TK1111",
+							"host": [
+								"{{API_ROOT}}"
+							],
+							"path": [
+								"vehicleLocationHistory"
+							],
+							"query": [
+								{
+									"key": "deviceid",
+									"value": "TK1111"
+								}
+							]
+						},
+						"description": "vehicle location history list"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Detainees",
+			"item": [
+				{
+					"name": "{{API_ROOT}}/detainees LIST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "deviceid",
+									"value": "TK1111",
+									"sessionValue": "TK1111",
+									"type": "text"
+								},
+								{
+									"key": "latitute",
+									"value": "-148.530111867397",
+									"sessionValue": "-148.530111867397",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "72.0497516948508",
+									"sessionValue": "72.0497516948508",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_ROOT}}/detainees",
+							"host": [
+								"{{API_ROOT}}"
+							],
+							"path": [
+								"detainees"
+							]
+						},
+						"description": "Get list of detainees"
+					},
+					"response": []
+				},
+				{
+					"name": "{{API_ROOT}}/detainees ADD",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "HASSAN",
+									"sessionValue": "TK1111",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "-148.530111867397",
+									"sessionValue": "-148.530111867397",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "72.0497516948508",
+									"sessionValue": "72.0497516948508",
+									"type": "text"
+								},
+								{
+									"key": "deviceid",
+									"value": "TK111",
+									"sessionValue": "TK111",
+									"type": "text"
+								},
+								{
+									"key": "picture",
+									"value": "",
+									"sessionValue": null,
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_ROOT}}/detainees",
+							"host": [
+								"{{API_ROOT}}"
+							],
+							"path": [
+								"detainees"
+							]
+						},
+						"description": "Add new detainees"
+					},
+					"response": []
+				},
+				{
+					"name": "{{API_ROOT}}/detainees DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "deviceid",
+									"value": "TK1111",
+									"sessionValue": "TK1111",
+									"type": "text"
+								},
+								{
+									"key": "latitute",
+									"value": "-148.530111867397",
+									"sessionValue": "-148.530111867397",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "72.0497516948508",
+									"sessionValue": "72.0497516948508",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_ROOT}}/detainees/5b7e60bbbea4359770987af5",
+							"host": [
+								"{{API_ROOT}}"
+							],
+							"path": [
+								"detainees",
+								"5b7e60bbbea4359770987af5"
+							]
+						},
+						"description": "delete detainees"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Status",
+			"item": [
+				{
+					"name": "{{API_ROOT}}/status GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "deviceid",
+									"value": "TK1111",
+									"sessionValue": "TK1111",
+									"type": "text"
+								},
+								{
+									"key": "latitute",
+									"value": "-148.530111867397",
+									"sessionValue": "-148.530111867397",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "72.0497516948508",
+									"sessionValue": "72.0497516948508",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_ROOT}}/status",
+							"host": [
+								"{{API_ROOT}}"
+							],
+							"path": [
+								"status"
+							]
+						},
+						"description": "Get Status"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
