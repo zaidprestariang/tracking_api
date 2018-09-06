@@ -194,6 +194,210 @@ map.addControl(new mapboxgl.GeolocateControl({
     //requestAnimationFrame(animateMarker);
 }*/
 
+// zaid's code to add polygon layer
+$.ajaxSetup({
+    async: false
+});
+
+
+
+function addlayers() {
+    if (map.getLayer('Star Central Polygon')) {
+
+    } else {
+        map.addLayer({
+            'id': 'Star Central Polygon',
+            'type': 'fill',
+            'source': {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'Polygon',
+                        'coordinates':
+                            [
+                                [
+                                    [101.653170, 2.911660],
+                                    [101.651540, 2.911660],
+                                    [101.651540, 2.913460],
+                                    [101.652331, 2.913460],
+                                    [101.652331, 2.912460],
+                                    [101.653170, 2.912460],
+                                    [101.653170, 2.911660]
+                                ]
+                            ]
+                    }
+                }
+            },
+            'layout': {},
+            'paint': {
+                'fill-color': 'yellow',
+                'fill-opacity': 0.25
+            }
+        });
+
+
+        map.addLayer({
+            'id': 'Star Central Building',
+            'type': 'fill-extrusion',
+            'source': {
+                'type': 'geojson',
+                'data': data_star_central
+            },
+            'paint': {
+                // Get the fill-extrusion-color from the source 'color' property.
+                'fill-extrusion-color': ['get', 'color'],
+
+                // Get fill-extrusion-height from the source 'height' property.
+                'fill-extrusion-height': ['get', 'height'],
+
+                // Get fill-extrusion-base from the source 'base_height' property.
+                'fill-extrusion-base': ['get', 'base_height'],
+
+                // Make extrusions slightly opaque for see through indoor walls.
+                'fill-extrusion-opacity': 0.5
+            }
+        });
+    }
+}
+
+function addHeatmap(device_id) {
+    var jsonData = {
+        "type": "FeatureCollection",
+        "crs": {
+            "type": "name",
+            "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+        },
+        "features": (function() {
+            var result;
+            $.getJSON('http://prestariang.akaunsaya.com:5000/vehicleLocationHistory?deviceid='+device_id, {}, function(data){
+                result = data;
+            });
+            return result;
+        })()
+    };
+    console.log(jsonData.features);
+
+    $.each( jsonData.features, function( key, val ) {
+        var ori = val.geometry.coordinates;
+        var newer = [ori[1], ori[0]];
+        val.geometry.coordinates = newer;
+    });
+
+    if (map.getLayer('Device Heatmap')) {
+        map.getSource('deviceheatdata').setData(jsonData);
+    } else {
+        map.addSource('deviceheatdata', {
+            "type": "geojson",
+            "data": jsonData
+        });
+
+        map.addLayer({
+            "id": "Device Heatmap",
+            "type": "heatmap",
+            "source": "deviceheatdata",
+            "maxzoom": 18
+        }, 'waterway-label');
+
+        map.addLayer({
+            "id": "Device Point",
+            "type": "circle",
+            "source": "deviceheatdata",
+            "minzoom": 7,
+            "paint": {
+                // Size circle radius by earthquake magnitude and zoom level
+                "circle-radius": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    7, 1,//[
+                    //    "interpolate",
+                    //    ["linear"],
+                    //    ["get", "mag"],
+                    //    1, 1,
+                    //    6, 4
+                    //],
+                    16, 1 //[
+                    //    "interpolate",
+                    //    ["linear"],
+                    //   ["get", "mag"],
+                    //    1, 5,
+                    //    6, 50
+                    //]
+                ],
+                // Color circle by earthquake magnitude
+                "circle-color": [
+                    "interpolate",
+                    ["linear"],
+                    1,
+                    //["get", "mag"],
+                    1, "rgba(33,102,172,0)",
+                    2, "rgb(103,169,207)",
+                    3, "rgb(209,229,240)",
+                    4, "rgb(253,219,199)",
+                    5, "rgb(239,138,98)",
+                    6, "rgb(178,24,43)"
+                ],
+                "circle-stroke-color": "white",
+                "circle-stroke-width": 1,
+                // Transition from heatmap to circle layer by zoom level
+                "circle-opacity": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    7, 0,
+                    8, 1
+                ]
+            }
+        }, 'waterway-label');
+
+        insideMapMenu([ 'Star Central Polygon', 'Star Central Building', 'Device Heatmap', 'Device Point' ]);
+    }
+}
+
+function insideMapMenu(menu_list) {
+    var toggleableLayerIds = menu_list;
+    $('#menu_2').html('');
+    for (var i = 0; i < toggleableLayerIds.length; i++) {
+        var id = toggleableLayerIds[i];
+
+        var link = document.createElement('a');
+        link.href = '#';
+        link.className = 'active';
+        link.textContent = id;
+
+        link.onclick = function (e) {
+            var clickedLayer = this.textContent;
+            e.preventDefault();
+            e.stopPropagation();
+
+            var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+            if (visibility === 'visible') {
+                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            }
+        };
+        var layers = document.getElementById('menu_2');
+        layers.appendChild(link);
+
+        
+    }
+}
+
+map.on('load', function() {
+    addlayers();
+    insideMapMenu([ 'Star Central Polygon', 'Star Central Building']);
+});
+
+map.on('style.load', function () {
+    // Triggered when `setStyle` is called.
+    addlayers();
+});
+
 var timer;
 var berhenti = false;
 
@@ -350,7 +554,7 @@ function dropdownChange()
                         x._lngLat.lng,
                         x._lngLat.lat
                     ]});
-
+                addHeatmap($('#deviceid').val());
             } else {
 
             }
